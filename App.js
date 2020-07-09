@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -8,6 +9,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './components/HomeScreen';
 import NotifScreen from './components/NotificationScreen';
 import AccountScreen from './components/AccountScreen';
+import {StyleSheet} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,5 +42,11 @@ const App = () => {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+  },
+});
 
 export default App;

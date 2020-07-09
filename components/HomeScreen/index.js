@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import HomeFeed from './HomeFeed';
-import DetailProgram from './DetailProgram';
+import HomeFeed from './HomeFeed/HomeFeed';
+import DetailProgram from './DetailProgram/DetailProgram';
 
 const Stack = createStackNavigator();
 
