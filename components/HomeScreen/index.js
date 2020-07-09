@@ -1,49 +1,18 @@
 import * as React from 'react';
-import {View, Text, FlatList, TouchableOpacity, Image} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-import styles from './styles';
+import HomeFeed from './HomeFeed';
+import DetailProgram from './DetailProgram';
 
-const HomeScreen = () => {
-  const [feed, setFeed] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+const Stack = createStackNavigator();
 
-  React.useEffect(() => {
-    fetch('https://demo.pedulibersama.id/api/campaigns/feed')
-      .then((response) => response.json())
-      .then((json) => setFeed(json))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
-
-  const ListItem = (prop) => {
-    return (
-      <TouchableOpacity style={styles.card}>
-        <Image
-          style={styles.cardImage}
-          source={{
-            uri: prop.image,
-          }}
-        />
-        <Text style={styles.cardText}>{prop.title}</Text>
-      </TouchableOpacity>
-    );
-  };
-
+const HomeStackScreen = () => {
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={feed}
-        numColumns={2}
-        keyExtractor={({id}, index) => id.toString()}
-        renderItem={({item}) => (
-          <ListItem
-            title={item.title}
-            image={`https://demo.pedulibersama.id/storage/admin/${item.cover_image_url}`}
-          />
-        )}
-      />
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="HomeFeed" component={HomeFeed} />
+      <Stack.Screen name="DetailProgram" component={DetailProgram} />
+    </Stack.Navigator>
   );
 };
 
-export default HomeScreen;
+export default HomeStackScreen;
