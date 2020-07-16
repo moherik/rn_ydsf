@@ -3,10 +3,11 @@ import {
   FlatList,
   SafeAreaView,
   ScrollView,
-  Text,
-  StyleSheet,
+  Image,
+  StyleSheet,ActivityIndicator, View
 } from 'react-native';
 
+import Top from '../Top/Top';
 import Count from '../Count/Count';
 import ListItem from '../LisItem/ListItem';
 
@@ -25,14 +26,21 @@ const HomeScreen = ({navigation}) => {
   return (
     <SafeAreaView>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <Top />
+        <View style={{paddingHorizontal:15, backgroundColor:'#fff'}}>
+        <Image
+            source={require('../../../assets/banner.jpg')}
+            style={{ width: '100%', height: 132,borderRadius:6}}
+          />
+        </View>
         <Count />
         {loading ? (
-          <Text>Loading</Text>
+        <ActivityIndicator size="large" color="#48B349" style={{paddingTop:'50%'}}/>
         ) : (
           <FlatList
             style={styles.container}
             data={feed}
-            numColumns={2}
+            numColumns={1}
             keyExtractor={({id}, index) => id.toString()}
             renderItem={({item}) => (
               <ListItem item={item} navigation={navigation} />
@@ -46,8 +54,10 @@ const HomeScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: 15,
+    paddingVertical: 20,
+    backgroundColor:'#fff',
+    marginTop:10
   },
 });
 

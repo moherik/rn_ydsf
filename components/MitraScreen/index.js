@@ -3,12 +3,12 @@ import {View, Text} from 'react-native';
 
 import styles from './styles';
 
-const NotifScreen = () => {
+const MitraScreen = () => {
   return (
     <View>
-      <Text>Notifications</Text>
+      <Text>Mitra</Text>
     </View>
   );
 };
 
-export default NotifScreen;
+export default MitraScreen;

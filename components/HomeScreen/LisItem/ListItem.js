@@ -1,14 +1,16 @@
 import * as React from 'react';
 import {TouchableOpacity, Image, Text, View} from 'react-native';
+import {ProgressBar} from '@react-native-community/progress-bar-android';
 
 import styles from './styles';
 
 const ListItem = ({item, navigation}) => {
-  const {cover_image_url, title, slug, category} = item;
+  const {cover_image_url, title, slug, max_nominal, max_time} = item;
 
   return (
     <TouchableOpacity
       style={styles.card}
+      numColumns={2}
       onPress={() =>
         navigation.navigate('DetailProgram', {
           slug: slug,
@@ -21,8 +23,21 @@ const ListItem = ({item, navigation}) => {
         }}
       />
       <View style={styles.cardBody}>
-        <Text style={styles.cardCategory}>{category.category}</Text>
         <Text style={styles.cardText}>{title}</Text>
+        <View style={styles.flexRowSpaceBetwen}>
+          <Text style={styles.textProgress}>0%</Text>
+          <Text style={styles.textProgress}>{max_nominal}</Text>
+        </View>
+        <ProgressBar 
+          styleAttr="Horizontal"
+          indeterminate={false}
+          progress={0.5}
+          style={{color:'#48B349', borderRadius:12,}}
+        />
+        <View style={styles.flexRowSpaceBetwen}>
+          <Text>{max_time}</Text>
+          <Text></Text>
+        </View>
       </View>
     </TouchableOpacity>
   );

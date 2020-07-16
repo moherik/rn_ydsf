@@ -3,28 +3,42 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    justifyContent: 'flex-start',
+    flexDirection:'row',
     backgroundColor: '#FFFFFF',
-    marginVertical: 10,
-    marginHorizontal: 10,
-    borderRadius: 6,
-    overflow: 'hidden',
+    borderRadius: 4,
+    borderWidth: .5,
+    borderColor:'#EBEDF1',
+    marginBottom:14
   },
   cardImage: {
-    width: '100%',
-    height: 100,
+    flex:2,
+    height: 132,
   },
   cardBody: {
-    padding: 10,
+    flex:3,
+    padding:14,
   },
   cardCategory: {
-    color: '#909aad',
-    marginBottom: 5,
   },
   cardText: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontFamily: 'Lato',
+    fontSize: 14,
+    lineHeight:18,
+    fontWeight:'bold',
+    color:'#2D386E',
+    marginBottom: 16,
   },
+  flexRowSpaceBetwen:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-between'
+  },
+  textProgress:{
+    fontSize: 13,
+    fontWeight:'bold',
+    fontFamily:'Lato',
+    color:'#2D386E',
+  }
 });
 
 export default styles;
