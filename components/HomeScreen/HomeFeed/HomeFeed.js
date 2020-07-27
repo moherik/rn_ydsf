@@ -4,15 +4,22 @@ import {
   SafeAreaView,
   ScrollView,
   Image,
-  StyleSheet,ActivityIndicator, View
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
-
-import Top from '../Top/Top';
+import TopNotification from '../HomeComponent/TopNotification';
 import Count from '../Count/Count';
+import SearchBar from '../HomeComponent/SearchBar';
 import ListItem from '../LisItem/ListItem';
+import ListBlog from '../HomeComponent/ListBlog';
+import SlugProgram from '../HomeComponent/SlugProgram';
 
 const HomeScreen = ({navigation}) => {
   const [feed, setFeed] = React.useState([]);
+  const [blog, setBlog] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -23,41 +30,160 @@ const HomeScreen = ({navigation}) => {
       .finally(() => setLoading(false));
   }, []);
 
+  React.useEffect(() => {
+    fetch('http://demo.pedulibersama.id/api/blogs')
+      .then((response) => response.json())
+      .then((json) => setBlog(json))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
-    <SafeAreaView>
+    <SafeAreaView  style={styles.ScreenView}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Top />
-        <View style={{paddingHorizontal:15, backgroundColor:'#fff'}}>
+        <TopNotification />
+        <View style={{paddingHorizontal:15,}} >
+        <SearchBar />
         <Image
             source={require('../../../assets/banner.jpg')}
             style={{ width: '100%', height: 132,borderRadius:6}}
           />
         </View>
         <Count />
-        {loading ? (
-        <ActivityIndicator size="large" color="#48B349" style={{paddingTop:'50%'}}/>
-        ) : (
-          <FlatList
-            style={styles.container}
-            data={feed}
-            numColumns={1}
-            keyExtractor={({id}, index) => id.toString()}
-            renderItem={({item}) => (
-              <ListItem item={item} navigation={navigation} />
-            )}
-          />
-        )}
+        <View style={styles.LineDecoration}/>
+          <View style={styles.section}>
+            <View style={styles.WrapperSlug}>
+              <SlugProgram 
+              img={require('../../../assets/sosial.png')}
+              title="Social"/>
+              <SlugProgram 
+              img={require('../../../assets/building.png')}
+              title="Building"/>
+              <SlugProgram 
+              img={require('../../../assets/edukasi.png')}
+              title="Education"/>
+              <SlugProgram 
+              img={require('../../../assets/startup.png')}
+              title="Wirausaha"/>
+            </View>
+            <View style={styles.WrapperTitle}>
+              <Text style={styles.textFirst}>Fundraishing 
+                <Text style={styles.textLast}>Programs</Text>
+              </Text>
+              <TouchableOpacity>
+                <Text style={styles.textShowMore}>Show More</Text>
+              </TouchableOpacity>
+            </View>
+            {loading ? (
+            <ActivityIndicator size="large" color="#48B349"/>
+            ) : (
+              <FlatList
+              style={{paddingTop:10}}
+                data={feed}
+                numColumns={1}
+                keyExtractor={({id}, index) => id.toString()}
+                renderItem={({item}) => (
+                  <ListItem item={item} navigation={navigation} />
+                )}
+              />
+              )}
+        </View>
+        <View style={styles.LineDecoration}/>
+        <View style={styles.SectionStorys}>
+          <View style={styles.WrapperTitle}>
+            <Text style={styles.textFirst2}>Success <Text style={styles.textLast2}>Stories</Text></Text>
+            <TouchableOpacity>
+              <Text style={styles.textShowMore2}>Show More</Text>
+            </TouchableOpacity>
+          </View>
+          {loading ? (
+            <ActivityIndicator size="large" color="#48B349"/>
+            ) : (
+              <FlatList
+              style={{paddingTop:10}}
+                data={blog}
+                numColumns={1}
+                keyExtractor={({id}) => id.toString()}
+                renderItem={({item}) => (
+                  <ListBlog item={item} navigation={navigation} />
+                )}
+              />
+              )}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  ScreenView: {
+    flex:1 , 
+    backgroundColor: 'white'
+  },
+  section:{
     paddingHorizontal: 15,
-    paddingVertical: 20,
-    backgroundColor:'#fff',
-    marginTop:10
+    paddingVertical: 18,
+  },
+  LineDecoration:{
+    height: 10,
+    flex: 1,
+    backgroundColor: '#E9EBEF',
+    opacity: 0.5,
+  },
+  WrapperSlug: {
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    paddingHorizontal:10, 
+    marginBottom:28
+  },
+  WrapperTitle:{
+    flexDirection: 'row',
+    alignItems:'center',
+    justifyContent:'space-between',
+    marginBottom: 12
+  },
+  textFirst:{
+    fontSize:18,
+    lineHeight:22,
+    fontFamily:'Lato',
+    color:'#2D386E'
+  },
+  textLast:{
+    fontWeight:'bold',
+    fontSize:18,
+    lineHeight:22,
+    fontFamily:'Lato',
+    color:'#48B349'
+  },
+  textShowMore:{
+    fontSize:11,
+    lineHeight:13,
+    fontFamily:'Lato',
+    color:'#909AAD'
+  },
+  SectionStorys:{
+    backgroundColor:'#2D386E',
+    paddingHorizontal: 15,
+    paddingVertical: 24,
+  },
+  textFirst2:{
+    fontSize:18,
+    lineHeight:22,
+    fontFamily:'Lato',
+    color:'#FFFFFF'
+  },
+  textLast2:{
+    fontWeight:'bold',
+    fontSize:18,
+    lineHeight:22,
+    fontFamily:'Lato',
+    color:'#FFFFFF'
+  },
+  textShowMore2:{
+    fontSize:11,
+    lineHeight:13,
+    fontFamily:'Lato',
+    color:'#FFFFFF'
   },
 });
 

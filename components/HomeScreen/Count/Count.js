@@ -30,8 +30,8 @@ const Count = () => {
             <Text style={styles.text}>Program On Progress</Text>
           </View>
           <View style={styles.gridItem}>
-            <Text style={styles.textCount}>{count.totalDonationSuccess}</Text>
-            <Text style={styles.text}>totalDonation Success</Text>
+            <Text style={styles.textCount}>{count.totalUser}</Text>
+            <Text style={styles.text}>Jumlah Pengguna</Text>
           </View>
         </View>
       )}

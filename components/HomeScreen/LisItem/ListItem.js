@@ -5,7 +5,7 @@ import {ProgressBar} from '@react-native-community/progress-bar-android';
 import styles from './styles';
 
 const ListItem = ({item, navigation}) => {
-  const {cover_image_url, title, slug, max_nominal, max_time} = item;
+  const {cover_image_url, title, slug, max_nominal, max_time, icon} = item;
 
   return (
     <TouchableOpacity
@@ -26,17 +26,17 @@ const ListItem = ({item, navigation}) => {
         <Text style={styles.cardText}>{title}</Text>
         <View style={styles.flexRowSpaceBetwen}>
           <Text style={styles.textProgress}>0%</Text>
-          <Text style={styles.textProgress}>{max_nominal}</Text>
+          <Text style={styles.textProgress}>IDR {max_nominal}</Text>
         </View>
         <ProgressBar 
           styleAttr="Horizontal"
           indeterminate={false}
           progress={0.5}
-          style={{color:'#48B349', borderRadius:12,}}
+          style={{color:'#48B349'}}
         />
         <View style={styles.flexRowSpaceBetwen}>
           <Text>{max_time}</Text>
-          <Text></Text>
+          <Text>Collected</Text>
         </View>
       </View>
     </TouchableOpacity>

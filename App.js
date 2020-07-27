@@ -1,8 +1,7 @@
 import * as React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Icon} from "@up-shared/IconComponents";
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {StyleSheet} from 'react-native';
 import HomeScreen from './components/HomeScreen';
 import DonasiScreen from './components/DonasiScreen';
 import MitraScreen from './components/MitraScreen';
@@ -18,35 +17,34 @@ const App = () => {
           tabBarIcon: ({focused, color, size}) => {
             let iconName;
 
-            if (route.name === 'Beranda') {
-              iconName = focused ? 'home' : 'home-outline';
-            } else if (route.name === 'DonasiSaya') {
-              iconName = focused ? 'wallet' : 'wallet-outline';
-            } else if (route.name === 'MitraDonasi') {
-              iconName = focused ? 'star' : 'star-outline';
-            } else if (route.name === 'Account') {
-              iconName = focused ? 'account' : 'account-outline';
+            if (route.name === 'home') {
+              iconName = focused ? 'home' : 'home';
+            } else if (route.name === 'donasi') {
+              iconName = focused ? 'wallet' : 'wallet';
+            } else if (route.name === 'mitra') {
+              iconName = focused ? 'star' : 'star';
+            } else if (route.name === 'account') {
+              iconName = focused ? 'profile' : 'profile';
             }
-            return <Icon name={iconName} size={size} color={color} />;
+            return <Icon name={iconName} size={20} color={color} />;
           },
         })}
         tabBarOptions={{
-          activeTintColor: 'green',
-          inactiveTintColor: 'gray',
+          activeTintColor: '#48B349',
+          inactiveTintColor: '#C7CCD6',
+          keyboardHidesTabBar: true,
+          labelStyle: {
+            fontSize: 13,
+            fontFamily: 'Lato',
+          },
         }}>
-        <Tab.Screen name="Beranda" component={HomeScreen} />
-        <Tab.Screen name="DonasiSaya" component={DonasiScreen} />
-        <Tab.Screen name="MitraDonasi" component={MitraScreen} />
-        <Tab.Screen name="Account" component={AccountScreen} />
+        <Tab.Screen name="home" component={HomeScreen} options={{tabBarLabel: 'Beranda'}}/>
+        <Tab.Screen name="donasi" component={DonasiScreen} options={{tabBarLabel: 'Donasi Saya'}}/>
+        <Tab.Screen name="mitra" component={MitraScreen} options={{tabBarLabel: 'Mitra Donasi'}}/>
+        <Tab.Screen name="account" component={AccountScreen} options={{tabBarLabel: 'Account'}}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-  },
-});
 
 export default App;
