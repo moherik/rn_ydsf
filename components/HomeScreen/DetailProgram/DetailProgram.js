@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, Button} from 'react-native';
 
 const DetailProgram = ({route, navigation}) => {
   const {slug} = route.params;
@@ -36,6 +36,10 @@ const DetailProgram = ({route, navigation}) => {
       />
       <View>
         <Text style={styles.detailText}>{title}</Text>
+        <Button
+          title="Donasi Sekarang"
+          onPress={() => navigation.push('AuthModal')}
+        />
       </View>
     </View>
   );
