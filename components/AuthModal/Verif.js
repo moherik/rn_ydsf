@@ -25,9 +25,9 @@ const Verif = ({phone, setPhone, verif, setVerif, setLoading}) => {
   }
 
   const confirmCode = async () => {
-    setLoading(true);
     const confirm = await verif.confirm(code);
-    console.log(confirm);
+    const {phoneNumber} = confirm.user;
+    console.log(phoneNumber);
   }
 
   return (
