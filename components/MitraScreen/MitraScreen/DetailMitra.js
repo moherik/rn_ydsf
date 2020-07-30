@@ -28,7 +28,7 @@ const DetailMitra = () => {
                         </View>
                     </View>
                 </View>
-                <View style={styles.}>
+                <View style={styles.ProfileMitra}>
                     <View style={styles.WpLogo}>
                         <Image source={require('../../../assets/logo.png')} style={{width:54, height: 24}}/>
                     </View>
