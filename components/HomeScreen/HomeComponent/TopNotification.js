@@ -19,11 +19,6 @@ const TopNotification = () => {
         />
           </TouchableOpacity>
         </View>
-        <View style={{ flexDirection: 'row', flex: 1, marginTop: 14}}>
-          <Text style={styles.textPeduli}>Peduli </Text>
-          <Text style={styles.textBersama}>Bersama</Text>
-        </View>
-        <Text style={styles.descTop}>Program Penggalangan dana Yayasan Dana Sosial Al-Falah</Text>
     </View>
   );
 };
@@ -32,7 +27,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
     paddingTop: 15,
-    paddingBottom: 24,
+    paddingBottom: 10,
     flex:1,
     backgroundColor:"#fff"
   },
@@ -41,25 +36,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between", 
     alignItems:"center"
   },
-  textPeduli:{
-    fontSize: 24,
-    lineHeight: 29,
-    color:'#0254A3',
-    fontFamily: "Lato"
-  },
-  textBersama:{
-    fontWeight:'bold',
-    fontSize: 24,
-    lineHeight: 29,
-    color:'#48B349',
-    fontFamily: "Lato"
-  },
-  descTop:{
-    fontSize: 12,
-    lineHeight: 14,
-    color: '#909AAD',
-    marginTop: 6
-  }
 });
 
 export default TopNotification;

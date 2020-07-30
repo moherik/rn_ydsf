@@ -9,18 +9,26 @@ import {
   View,
   TouchableOpacity,
   ActivityIndicator,
+  RefreshControl,
+  YellowBox,
 } from 'react-native';
 import TopNotification from '../HomeComponent/TopNotification';
+import HeaderTitle from '../HomeComponent/HeaderTitle'
 import Count from '../Count/Count';
 import SearchBar from '../HomeComponent/SearchBar';
 import ListItem from '../LisItem/ListItem';
 import ListBlog from '../HomeComponent/ListBlog';
 import SlugProgram from '../HomeComponent/SlugProgram';
 
+YellowBox.ignoreWarnings([
+  'VirtualizedLists should never be nested', // TODO: Remove when fixed
+])
+
 const HomeScreen = ({navigation}) => {
   const [feed, setFeed] = React.useState([]);
   const [blog, setBlog] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+ 
 
   React.useEffect(() => {
     fetch('https://demo.pedulibersama.id/api/campaigns/feed')
@@ -31,17 +39,34 @@ const HomeScreen = ({navigation}) => {
   }, []);
 
   React.useEffect(() => {
-    fetch('http://demo.pedulibersama.id/api/blogs')
+    fetch('https://demo.pedulibersama.id/api/blogs')
       .then((response) => response.json())
       .then((json) => setBlog(json))
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
   }, []);
 
+  
+  const state = {
+    refreshing: false,
+  };
+
+  const _onRefresh = async () => {
+    await new Promise(resolve => setTimeout(resolve, 2000));
+  };
+
   return (
     <SafeAreaView  style={styles.ScreenView}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl
+          refreshing={state.refreshing}
+          onRefresh={_onRefresh}
+        />
+      }
+      >
         <TopNotification />
+        <HeaderTitle />
         <View style={{paddingHorizontal:15,}} >
         <SearchBar />
         <Image
@@ -85,6 +110,7 @@ const HomeScreen = ({navigation}) => {
                 renderItem={({item}) => (
                   <ListItem item={item} navigation={navigation} />
                 )}
+                
               />
               )}
         </View>

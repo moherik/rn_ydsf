@@ -8,7 +8,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: .5,
     borderColor:'#EBEDF1',
-    marginBottom:14
+    marginBottom:14,
+    overflow: 'hidden'
   },
   cardImage: {
     flex:2,

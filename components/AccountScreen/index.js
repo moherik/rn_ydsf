@@ -1,13 +1,19 @@
 import * as React from 'react';
-import {View, Text} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import Account from './InsideAccount/AccountViewer';
+import EditAccount from './InsideAccount/EditProfile';
+import Ebook from './InsideAccount/Ebook';
 
-import styles from './styles';
+const Stack = createStackNavigator();
 
 const AccountScreen = () => {
   return (
-    <View>
-      <Text>Account</Text>
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="Account" component={Account} 
+      options={{headerShown: false}}/>
+      <Stack.Screen name="EditAccount" component={EditAccount} />
+      <Stack.Screen name="Ebook" component={Ebook} />
+    </Stack.Navigator>
   );
 };
 

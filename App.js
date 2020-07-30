@@ -33,8 +33,11 @@ const App = () => {
           activeTintColor: '#48B349',
           inactiveTintColor: '#C7CCD6',
           keyboardHidesTabBar: true,
+          tabStyle: {
+            paddingVertical: 3
+          },
           labelStyle: {
-            fontSize: 13,
+            fontSize: 12,
             fontFamily: 'Lato',
           },
         }}>

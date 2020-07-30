@@ -1,13 +1,17 @@
 import * as React from 'react';
-import {View, Text} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import List from './MitraScreen/MitraView';
+import DetailMitra from './MitraScreen/DetailMitra';
 
-import styles from './styles';
+const Stack = createStackNavigator();
 
 const MitraScreen = () => {
   return (
-    <View>
-      <Text>Mitra</Text>
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="MitraView" component={List} 
+      options={{headerShown: false}}/>
+      <Stack.Screen name="DetailMitra" component={DetailMitra} />
+    </Stack.Navigator>
   );
 };
 

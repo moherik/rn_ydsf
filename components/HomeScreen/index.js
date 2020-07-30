@@ -11,7 +11,9 @@ const HomeStackScreen = () => {
     <Stack.Navigator>
       <Stack.Screen name="Home" component={HomeFeed} 
       options={{headerShown: false}}/>
-      <Stack.Screen name="DetailProgram" component={DetailProgram} />
+      <Stack.Screen name="DetailProgram" component={DetailProgram} 
+      options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };
