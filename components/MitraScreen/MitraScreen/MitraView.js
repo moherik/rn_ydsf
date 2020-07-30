@@ -10,7 +10,7 @@ import {
   ActivityIndicator,} from 'react-native';
 import TopNotification from '../../HomeScreen/HomeComponent/TopNotification';
 import SearchBar from '../../HomeScreen/HomeComponent/SearchBar';
-import Count from '../MitraComponent/Count';
+import Count from '../../HomeScreen/Count/Count';
 import List from '../MitraComponent/MitraList'
 import HeaderTitle from '../../HomeScreen/HomeComponent/HeaderTitle'
 
@@ -36,7 +36,7 @@ const MitraView = ({navigation}) => {
         <HeaderTitle />
         <View style={styles.search}>
             <SearchBar />
-            <Count/>
+            <Count bgcolor="#48B349" bordercolor="#fff" countcolor="#fff" textcolor="#fff"/>
             {loading ? (
             <ActivityIndicator size="large" color="#48B349"/>
             ) : (

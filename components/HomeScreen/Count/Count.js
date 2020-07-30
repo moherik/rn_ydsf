@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 
-const Count = () => {
+const Count = (props) => {
   const [count, setCount] = React.useState();
   const [loading, setLoading] = React.useState(true);
 
@@ -16,22 +16,22 @@ const Count = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={{...styles.container,backgroundColor: props.bgcolor}}>
       {loading ? (
-        <ActivityIndicator size="small" color="#48B349" />
+        <ActivityIndicator size="small" color="#48B349"/>
       ) : (
         <View style={styles.grid}>
           <View style={styles.gridItem}>
-            <Text style={styles.textCount}>{count.totalCampaignComplete}</Text>
-            <Text style={styles.text}>Program Complete</Text>
+            <Text style={{...styles.textCount,color: props.countcolor}}>{count.totalCampaignComplete}</Text>
+            <Text style={{...styles.text,color: props.textcolor}}>Program Complete</Text>
           </View>
-          <View style={styles.gridItem2}>
-            <Text style={styles.textCount}>{count.totalCampaignProgress},000</Text>
-            <Text style={styles.text}>Program On Progress</Text>
+          <View style={{...styles.gridItem2,borderColor:props.bordercolor,}}>
+            <Text style={{...styles.textCount,color: props.countcolor}}>{count.totalCampaignProgress},000</Text>
+            <Text style={{...styles.text,color: props.textcolor}}>Program On Progress</Text>
           </View>
           <View style={styles.gridItem}>
-            <Text style={styles.textCount}>{count.totalUser}</Text>
-            <Text style={styles.text}>Jumlah Pengguna</Text>
+            <Text style={{...styles.textCount,color: props.countcolor}}>{count.totalUser}</Text>
+            <Text style={{...styles.text,color: props.textcolor}}>Jumlah Pengguna</Text>
           </View>
         </View>
       )}
@@ -42,9 +42,8 @@ const Count = () => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
-    backgroundColor:'#fff',
-    paddingBottom: 24,
-    paddingTop:24
+    paddingVertical: 17,
+    borderRadius: 8,
   },
   grid: {
     flexDirection: 'row',
@@ -60,21 +59,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: "column",
     borderLeftWidth: .4,
-    borderLeftColor:'#909AAD',
     borderRightWidth: .4,
-    borderRightColor:'#909AAD',
   },
   textCount:{
     fontSize:20,
     fontWeight: 'bold',
     lineHeight:24,
-    color:'#48B349',
     fontFamily: "Lato",
   },
   text:{
     fontSize:11,
     lineHeight:13,
-    color:'#909AAD',
     fontFamily: "Lato",
   }
 });

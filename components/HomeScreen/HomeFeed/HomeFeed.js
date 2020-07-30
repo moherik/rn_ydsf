@@ -74,7 +74,7 @@ const HomeScreen = ({navigation}) => {
             style={{ width: '100%', height: 132,borderRadius:6}}
           />
         </View>
-        <Count />
+        <Count bgcolor="#fff" bordercolor="#909AAD" countcolor="#48B349" textcolor="#909AAD"/>
         <View style={styles.LineDecoration}/>
           <View style={styles.section}>
             <View style={styles.WrapperSlug}>

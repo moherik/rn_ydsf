@@ -10,8 +10,10 @@ const MitraScreen = () => {
     <Stack.Navigator>
       <Stack.Screen name="MitraView" component={List} 
       options={{headerShown: false}}/>
-      <Stack.Screen name="DetailMitra" component={DetailMitra} />
+      <Stack.Screen name="DetailMitra" component={DetailMitra}
+      options={{headerTransparent: true, headerTitle:"",}}/>
     </Stack.Navigator>
+    //  headerStyle: {height: 80}
   );
 };
 

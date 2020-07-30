@@ -4,11 +4,12 @@ import TopNotification from '../../HomeScreen/HomeComponent/TopNotification';
 import Profile from '../AccountComponent/Profile';
 import {Icon} from "@up-shared/IconComponents";
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Button from '../AccountComponent/Button';
 
 const AccountViewer = () => {
     return (
         <SafeAreaView style={styles.ScreenView}>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{flexGrow:1,}}>
                 <TopNotification/>
                 <Profile/>
                 <View style={styles.Line}/>
@@ -41,15 +42,8 @@ const AccountViewer = () => {
                         </View>
                     </TouchableHighlight>
                 </View>
-                <TouchableHighlight
-                underlayColor="#FF6060"
-                onPress={() =>{}}>
-                    <View>
-                        <Icon name="power_off" size={20} color="#FF6060"/>
-                        <Text>Logout Account</Text>
-                    </View>
-                </TouchableHighlight>
             </ScrollView>
+            <Button/>
         </SafeAreaView>
     )
 }
@@ -58,16 +52,18 @@ export default AccountViewer
 
 const styles = StyleSheet.create({
     ScreenView: {
-        flex:1 , 
+        flexGrow:1 , 
         backgroundColor: 'white'
       },
       Line:{
           height: 10,
-          flex: 1,
+          width:"100%",
           backgroundColor:'#e9ebef80',
       },
       WrappManagement:{
           paddingTop: 24,
+          flex:1,
+          backgroundColor:'white'
       },
       Title:{
           paddingHorizontal: 15,
