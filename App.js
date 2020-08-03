@@ -10,6 +10,7 @@ import MitraScreen from './components/MitraScreen';
 import AccountScreen from './components/AccountScreen';
 
 import AuthModal from './components/AuthModal/AuthModal';
+import {Store} from './store';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -72,18 +73,20 @@ const TabScreen = () => {
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="TabScreen"
-          component={TabScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="AuthModal"
-          component={AuthModal}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
+      <Store>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="TabScreen"
+            component={TabScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="AuthModal"
+            component={AuthModal}
+            options={{headerShown: false}}
+          />
+        </Stack.Navigator>
+      </Store>
     </NavigationContainer>
   );
 };

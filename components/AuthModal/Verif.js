@@ -5,14 +5,27 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   StyleSheet,
+  ToastAndroid,
 } from 'react-native';
 
-import OTPInputView from '@twotalltotems/react-native-otp-input'
+import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {Icon} from '@up-shared/IconComponents';
+import AsyncStorage from '@react-native-community/async-storage';
 
-const Verif = ({phone, setPhone, verif, setVerif, setLoading}) => {
+import {AuthContext} from '../../store';
+
+const Verif = ({
+  phone,
+  setPhone,
+  verif,
+  setVerif,
+  setLoading,
+  signIn,
+  navigation,
+}) => {
+  const authDispactch = React.useContext(AuthContext.Dispatch);
+
   const [nextColor, setNextColor] = React.useState('#fff');
-  const [borderColor, setBorderColor] = React.useState('#E9EBEF');
   const [code, setCode] = React.useState(null);
 
   const changePhone = () => {
@@ -20,15 +33,72 @@ const Verif = ({phone, setPhone, verif, setVerif, setLoading}) => {
     setPhone();
   };
 
-  const resendCode = () => {
-    setLoading(true);
-  }
-
   const confirmCode = async () => {
-    const confirm = await verif.confirm(code);
-    const {phoneNumber} = confirm.user;
-    console.log(phoneNumber);
-  }
+    setLoading(true);
+    await verif
+      .confirm(code)
+      .then((res) => {
+        phoneAuth(phone);
+      })
+      .catch((err) => {
+        ToastAndroid.show('Invalid Code', ToastAndroid.SHORT);
+      })
+      .finally(() => setLoading(false));
+  };
+
+  const phoneAuth = async (phoneNumber) => {
+    return await fetch('https://demo.pedulibersama.id/api/phone-auth', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        phone: phone,
+      }),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        login(phone);
+      })
+      .catch((error) => {
+        ToastAndroid.show(`Error Logging in: (${error})`, ToastAndroid.SHORT);
+      })
+      .finally(() => setLoading(false));
+  };
+
+  const login = async (phoneNumber) => {
+    return await fetch('https://demo.pedulibersama.id/api/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        phone: phoneNumber,
+        password: phoneNumber,
+      }),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        storePhone();
+      })
+      .catch((error) => {
+        ToastAndroid.show(`Error Logging in: (${error})`, ToastAndroid.SHORT);
+      })
+      .finally(() => setLoading(false));
+  };
+
+  const storePhone = async () => {
+    try {
+      await AsyncStorage.setItem('@phone', JSON.stringify(phone));
+      authDispactch({type: 'RESTORE_PHONE', phone});
+      navigation.goBack();
+      ToastAndroid.show('Success Logged In', ToastAndroid.SHORT);
+    } catch (error) {
+      ToastAndroid.show(`Something went wrong: (${error})`, ToastAndroid.SHORT);
+    }
+  };
 
   return (
     <>
@@ -57,17 +127,24 @@ const Verif = ({phone, setPhone, verif, setVerif, setLoading}) => {
       </View>
 
       <View style={styles.otpContainer}>
-        <OTPInputView pinCount={4}
-            style={{width: '100%', height: 10, marginBottom: 40}}
-            pinCount={6}
-            autoFocusOnLoad
-            onCodeFilled={(value) => setCode(value)}
-            codeInputFieldStyle={styles.underlineStyleBase}
-            codeInputHighlightStyle={styles.underlineStyleHighLighted}
+        <OTPInputView
+          pinCount={4}
+          style={{width: '100%', height: 10, marginBottom: 40}}
+          pinCount={6}
+          autoFocusOnLoad
+          onCodeFilled={(value) => setCode(value)}
+          codeInputFieldStyle={styles.underlineStyleBase}
+          codeInputHighlightStyle={styles.underlineStyleHighLighted}
         />
         <View style={{display: 'flex', flexDirection: 'row'}}>
-          <Text style={{color: '#909AAD', marginRight: 5}}>Belum menerima kode?</Text>
-          <TouchableOpacity onPress={() => resendCode()}><Text style={{fontWeight: 'bold', color: '#2D386E'}}>kirim ulang</Text></TouchableOpacity>
+          <Text style={{color: '#909AAD', marginRight: 5}}>
+            Belum menerima kode?
+          </Text>
+          <TouchableOpacity onPress={() => signIn()}>
+            <Text style={{fontWeight: 'bold', color: '#2D386E'}}>
+              kirim ulang
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -112,8 +189,8 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   otpContainer: {
-    paddingHorizontal:40,
-    width:"100%",
+    paddingHorizontal: 40,
+    width: '100%',
     marginBottom: 65,
   },
   underlineStyleBase: {
@@ -125,7 +202,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   underlineStyleHighLighted: {
-    borderColor: "#48B349",
+    borderColor: '#48B349',
   },
   buttonNext: {
     backgroundColor: '#48B349',

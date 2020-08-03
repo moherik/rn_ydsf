@@ -7,17 +7,10 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import auth from '@react-native-firebase/auth';
 
-const Login = ({phone, setPhone, setVerif, setLoading}) => {
+const Login = ({signIn, setPhone}) => {
   const [nextColor, setNextColor] = React.useState('#fff');
   const [borderColor, setBorderColor] = React.useState('#E9EBEF');
-
-  const signinWithPhoneNumber = async () => {
-    setLoading(true);
-    const confirmation = await auth().signInWithPhoneNumber(phone).finally(() => setLoading(false));
-    setVerif(confirmation)
-  }
 
   return (
     <>
@@ -43,7 +36,7 @@ const Login = ({phone, setPhone, setVerif, setLoading}) => {
       <TouchableHighlight
         title="Selanjutnya"
         style={styles.buttonNext}
-        onPress={() => signinWithPhoneNumber()}
+        onPress={() => signIn()}
         onShowUnderlay={() => setNextColor('#000')}
         onHideUnderlay={() => setNextColor('#fff')}
         underlayColor="#E9EBEF">
