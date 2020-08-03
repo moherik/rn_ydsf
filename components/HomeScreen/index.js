@@ -14,7 +14,8 @@ const HomeStackScreen = () => {
         component={HomeFeed}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="DetailProgram" component={DetailProgram} />
+      <Stack.Screen name="DetailProgram" component={DetailProgram} 
+      options={{headerTransparent: true, headerTitle:"", headerTintColor:"#fff"}}/>
     </Stack.Navigator>
   );
 };

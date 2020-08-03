@@ -32,7 +32,15 @@ const DetailMitra = () => {
                     <View style={styles.WpLogo}>
                         <Image source={require('../../../assets/logo.png')} style={{width:54, height: 24}}/>
                     </View>
+                    <View>
+                        <Text style={styles.TitleMitra}>YDSF Sidoarjo</Text>
+                        <View style={styles.WpPlace}>
+                            <Icon name="place" color="#FCBD60"/>
+                            <Text style={styles.PlaceMitra}>Jl. Randu Asri VBT No. 48-49</Text>
+                        </View>
+                    </View>
                 </View>
+                <View style={{height:10,width:'100%', backgroundColor:'#E9EBEF' , opacity:.5}}/>
             </ScrollView>
         </SafeAreaView>
     )
@@ -84,6 +92,18 @@ const styles = StyleSheet.create({
         fontFamily:'Lato',
         color:'#fff'
       },
+      ProfileMitra:{
+          flexDirection: 'row',
+          alignItems:'center',
+          paddingHorizontal: 15,
+          marginVertical:20,
+      },
+      TitleMitra:{
+          fontSize:24,
+          fontFamily:'Lato',
+          fontWeight:'bold',
+          color:'#2D386E'
+      },
       WpLogo:{
           width:72,
           height:72,
@@ -93,5 +113,15 @@ const styles = StyleSheet.create({
           flexDirection: 'column',
           alignItems:'center',
           justifyContent: 'center',
+          marginRight:12,
+      },
+      WpPlace:{
+          flexDirection:'row',
+          alignItems:'center',
+      },
+      PlaceMitra:{
+          color:'#909AAD',
+          fontFamily:'Lato',
+          fontSize:13,
       },
 })
