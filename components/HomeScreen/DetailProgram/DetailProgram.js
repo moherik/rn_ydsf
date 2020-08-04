@@ -1,29 +1,27 @@
 import * as React from 'react';
-import {View, Text, Image, StyleSheet, Button, SafeAreaView, ScrollView, TouchableHighlight} from 'react-native';
+import {View, Text, Image, StyleSheet, Button, SafeAreaView, ScrollView, TouchableHighlight, ActivityIndicator,FlatList} from 'react-native';
 import {Icon} from "@up-shared/IconComponents";
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import {ProgressBar} from '@react-native-community/progress-bar-android';
-import {WebView} from 'react-native-webview';
+import ListDonatur from '../HomeComponent/ListDonatur'
 
 const DetailProgram = ({route, navigation}) => {
   const {slug} = route.params;
-
   const [id, setId] = React.useState();
   const [title, setTitle] = React.useState();
   const [location, setLocation] = React.useState();
   const [max_time, setTime] = React.useState();
   const [max_nominal, setNominal] = React.useState();
   const [content, setContent] = React.useState();
-
+  const [donatur, setDonatur] = React.useState([]);
   const [image, setImage] = React.useState();
   const [loading, setLoading] = React.useState(true);
 
-  React.useEffect(() => {
-    fetch(`https://demo.pedulibersama.id/api/campaigns/${slug}`)
+  const getCampaign = async () => {
+    await fetch(`https://demo.pedulibersama.id/api/campaigns/${slug}`)
       .then((response) => response.json())
       .then((json) => {
         const {id, title, location, max_time, max_nominal, content ,cover_image_url} = json[0];
-
         setId(id);
         setTitle(title);
         setLocation(location);
@@ -33,6 +31,20 @@ const DetailProgram = ({route, navigation}) => {
         setImage(
           `https://demo.pedulibersama.id/storage/admin/${cover_image_url}`,
         );
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {
+        setLoading(false)
+      });
+  }
+
+  React.useEffect(() => {
+    getCampaign();
+    
+    fetch(`https://demo.pedulibersama.id/api/donations/campaign/${route.params.id}`)
+      .then((response) => response.json())
+      .then((json) => { console.log(json)
+        setDonatur(json)
       })
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
@@ -110,6 +122,41 @@ const DetailProgram = ({route, navigation}) => {
             </TouchableHighlight>
           </View>
         </View>
+        <View style={{height:10,width:'100%', backgroundColor:'#E9EBEF' , opacity:.5}}/>
+        <View style={{paddingHorizontal:15, marginVertical:25 , marginBottom:100}}>
+          <Text style={styles.TitleDetail}>Donatur</Text>
+          <View style={{
+            overflow:'hidden',
+            borderWidth:1,
+            borderBottomWidth:1,
+            borderBottomColor:'#fff',
+            borderColor:'#E2EDF8',
+            borderRadius: 8,}}>
+          {loading ? (
+            <ActivityIndicator size="large" color="#48B349"/>
+            ) : (
+              <FlatList
+              style={styles.list}
+                data={donatur}
+                numColumns={1}
+                keyExtractor={({id}) => id.toString()}
+                renderItem={({item}) => (
+                  <ListDonatur item={item}/>
+                )}
+              />
+              )}</View>
+          <View>
+            <TouchableHighlight
+              underlayColor="#E0E3E8"
+              onPress={()=>{}}
+              style={styles.WpBtnMore}>
+                  <View style={styles.ButtonMore}>
+                      <Text style={styles.TextMore}>Baca Selengkapnya</Text>
+                      <Icon2 name="chevron-down" color="#48B349" size={13}/>
+                  </View>
+            </TouchableHighlight>
+          </View>
+        </View>
       </ScrollView>
         <TouchableHighlight
             underlayColor="#909AAD"
@@ -124,6 +171,8 @@ const DetailProgram = ({route, navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  list:{
+  },
   TextMore:{
     fontFamily:'Lato',
     color:'#48B349',

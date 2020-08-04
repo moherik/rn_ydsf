@@ -5,7 +5,7 @@ import {ProgressBar} from '@react-native-community/progress-bar-android';
 import styles from './styles';
 
 const ListItem = ({item, navigation}) => {
-  const {cover_image_url, title, slug, max_nominal, max_time, icon} = item;
+  const {cover_image_url, title, slug, max_nominal, max_time, id} = item;
 
   return (
     <TouchableOpacity
@@ -13,6 +13,7 @@ const ListItem = ({item, navigation}) => {
       numColumns={2}
       onPress={() =>
         navigation.navigate('DetailProgram', {
+          id: id,
           slug: slug,
         })
       }>
