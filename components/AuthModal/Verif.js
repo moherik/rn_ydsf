@@ -128,7 +128,6 @@ const Verif = ({
 
       <View style={styles.otpContainer}>
         <OTPInputView
-          pinCount={4}
           style={{width: '100%', height: 10, marginBottom: 40}}
           pinCount={6}
           autoFocusOnLoad
