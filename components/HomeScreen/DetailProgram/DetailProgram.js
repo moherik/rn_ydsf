@@ -1,9 +1,10 @@
 import * as React from 'react';
-import {View, Text, Image, StyleSheet, Button, SafeAreaView, ScrollView, TouchableHighlight, ActivityIndicator,FlatList} from 'react-native';
+import {View, Text, Image, StyleSheet, Button, SafeAreaView, ScrollView, TouchableHighlight, ActivityIndicator,FlatList, Dimensions } from 'react-native';
 import {Icon} from "@up-shared/IconComponents";
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import {ProgressBar} from '@react-native-community/progress-bar-android';
-import ListDonatur from '../HomeComponent/ListDonatur'
+import ListDonatur from '../HomeComponent/ListDonatur';
+import HTML from 'react-native-render-html';
 
 const DetailProgram = ({route, navigation}) => {
   const {slug} = route.params;
@@ -93,7 +94,8 @@ const DetailProgram = ({route, navigation}) => {
         </View>
         <View style={{paddingHorizontal:15, marginVertical:25}}>
           <Text style={styles.TitleDetail}>Detail Kegiatan</Text>
-          <Text style={styles.descDetail}>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae eget, tempor sit amet, ante. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</Text>
+        
+                <HTML html={content}/>
           <View>
             <TouchableHighlight
               underlayColor="#E0E3E8"
@@ -172,6 +174,7 @@ const DetailProgram = ({route, navigation}) => {
 
 const styles = StyleSheet.create({
   list:{
+    marginBottom:12,
   },
   TextMore:{
     fontFamily:'Lato',
