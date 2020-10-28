@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
         lineHeight:24,
       },
       WpDonaturItem:{
+        marginBottom:0,
         borderBottomWidth: 1,
         borderColor:'#E2EDF8',
         paddingHorizontal:20,

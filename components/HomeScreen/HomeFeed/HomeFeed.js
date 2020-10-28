@@ -93,7 +93,7 @@ const HomeScreen = ({navigation}) => {
             </View>
             <View style={styles.WrapperTitle}>
               <Text style={styles.textFirst}>Fundraishing 
-                <Text style={styles.textLast}>Programs</Text>
+                <Text style={styles.textLast}> Programs</Text>
               </Text>
               <TouchableOpacity>
                 <Text style={styles.textShowMore}>Show More</Text>

@@ -130,11 +130,11 @@ const DetailProgram = ({route, navigation}) => {
           <View style={{
             overflow:'hidden',
             borderWidth:1,
-            borderBottomWidth:1,
-            borderBottomColor:'#fff',
+            marginBottom:12,
+            paddingHorizontal:0,
             borderColor:'#E2EDF8',
             borderRadius: 8,}}>
-          {loading ? (
+            {loading ? (
             <ActivityIndicator size="large" color="#48B349"/>
             ) : (
               <FlatList
@@ -144,9 +144,8 @@ const DetailProgram = ({route, navigation}) => {
                 keyExtractor={({id}) => id.toString()}
                 renderItem={({item}) => (
                   <ListDonatur item={item}/>
-                )}
-              />
-              )}</View>
+                )}/>)}
+          </View>
           <View>
             <TouchableHighlight
               underlayColor="#E0E3E8"
@@ -174,7 +173,8 @@ const DetailProgram = ({route, navigation}) => {
 
 const styles = StyleSheet.create({
   list:{
-    marginBottom:12,
+    marginBottom:-1,
+    paddingBottom:0,
   },
   TextMore:{
     fontFamily:'Lato',

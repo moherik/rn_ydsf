@@ -7,11 +7,13 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
+import {Icon} from '@up-shared/IconComponents';
 
 const Login = ({signIn, setPhone}) => {
   const [nextColor, setNextColor] = React.useState('#fff');
   const [borderColor, setBorderColor] = React.useState('#E9EBEF');
-
+  const [txtBtnColor2, setTxtBtnColor2] = React.useState('#2D386E');
+  const [txtBtnColor, setTxtBtnColor] = React.useState('#2D386E');
   return (
     <>
       <View style={styles.caption}>
@@ -24,6 +26,7 @@ const Login = ({signIn, setPhone}) => {
           <TextInput
             style={{...styles.inputNumber, borderBottomColor: borderColor}}
             placeholder="Nomor Telepon"
+            keyboardType="number-pad"
             onChangeText={(value) => setPhone(`+62${value}`)}
             onFocus={() => setBorderColor('#48B349')}
             onBlur={() => setBorderColor('#E9EBEF')}
@@ -46,11 +49,82 @@ const Login = ({signIn, setPhone}) => {
           </Text>
         </View>
       </TouchableHighlight>
+      <View style={styles.ContainerOr}>
+        <View style={styles.line}/>
+        <Text style={styles.OrTitle}>OR</Text>
+        <View style={styles.line}/>
+      </View>
+      <TouchableHighlight
+          underlayColor="#2D386E"
+          onPress={() => ('')}
+          onShowUnderlay={() => setTxtBtnColor2('#ffff')}
+          onHideUnderlay={() => setTxtBtnColor2('#2D386E')}
+          style={styles.btnWrapper}>
+          <View style={styles.button}>
+            <Icon name="facebook" size={18} color={txtBtnColor2} />
+            <Text style={{...styles.btnText, color: txtBtnColor2}}>
+              Facebook
+            </Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          underlayColor="#2D386E"
+          onPress={() => ('')}
+          onShowUnderlay={() => setTxtBtnColor('#ffff')}
+          onHideUnderlay={() => setTxtBtnColor('#2D386E')}
+          style={styles.btnWrapper}>
+          <View style={styles.button}>
+            <Icon name="google" size={18} color={txtBtnColor} />
+            <Text style={{...styles.btnText, color: txtBtnColor}}>
+              Google
+            </Text>
+          </View>
+        </TouchableHighlight>
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  btnText: {
+    fontFamily: 'Lato',
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginLeft: 8,
+  },
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    width:138,
+  },
+  btnWrapper: {
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#E9EBEF',
+    backgroundColor: '#fff',
+    marginBottom:12,
+  },
+
+  ContainerOr:{
+    marginVertical:28,
+    display: 'flex',
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center',
+    width:'100%',
+  },
+  OrTitle:{
+    fontSize:14,
+    color:'#909AAD',
+    marginHorizontal:10,
+  },
+  line:{
+    width: 60,
+    borderBottomWidth:1,
+    borderBottomColor:'#E9EBEF',
+    backgroundColor:'#E9EBEF',
+  },
   caption: {
     marginVertical: 46,
     width: '100%',
